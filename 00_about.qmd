@@ -1,0 +1,85 @@
+---
+title: "Useful Information!"
+---
+
+![](capa.jpg)
+
+This material provides the scripts and datasets necessary to reproduce the examples presented in the **Plant Image Analysis Course*, offered as part of NEPEM’s internal training program
+
+# Software
+
+To reproduce the examples in this material, you will need the latest versions o R and RStudio (Portuguese).
+
+{{< video https://www.youtube.com/embed/e89kyYJgWqc >}}
+
+<a class="btn btn-success" href="https://cran.r-project.org/bin/windows/base/" target="_blank"><i class="fa fa-save"></i> Download R</a>
+
+<a class="btn btn-success" href="https://www.rstudio.com/products/rstudio/download/" target="_blank"><i class="fa fa-save"></i> Download RStudio</a>
+
+# Restoring the R environment with renv
+This command will install all required packages with the exact versions recorded in the `renv.lock` file. 
+
+
+```{r eval = FALSE}
+install.packages("renv")
+renv::activate()
+renv::restore()
+```
+
+
+
+If you later add new packages, run:
+```{r eval = FALSE}
+renv::snapshot()
+
+```
+
+
+
+# Citation
+
+[![](paper.png)](https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.13803)
+
+To cite the pliman package in your works, use the following reference:
+
+>  Olivoto T (2022). “Lights, camera, pliman! An R package for plant image analysis.” **Methods in Ecology
+  and Evolution**, 13(4), 789-798. doi:10.1111/2041-210X.13803 <https://doi.org/10.1111/2041-210X.13803>.
+
+```{r}
+citation("pliman")
+```
+
+# Scripts
+
+The .zip file contains a folder with the static website, structured as follows:
+
+```{r echo=FALSE}
+library(fs)
+fs::dir_tree("D:/Desktop/UFSC/NEPEM/capacitações/capacitacao_imganalise", recurse = 1)
+```
+
+The material in HTML (\_site/index.html) will give you access to the site, where you can view all examples, with codes and outputs. To reproduce the material, simply use the \*.qmd files.
+
+For reproduction, it is suggested to set the `htp_cbmp2025` folder as the default directory. You can easily set the directory by running the following command, assuming you have the `00_about.qmd` script open.
+
+```{r eval=FALSE}
+pliman::set_wd_here()
+```
+
+
+# License
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/TiagoOlivoto/tiagoolivoto/master/static/img/gemsr/license.jpg" alt="Creative Commons License" style="border-width:0" width="150" height="40"/></a><br />This content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>. The human-readable summary of the license states that you have the right to:
+
+-   **Share** — copy and redistribute the material in any medium or format.
+-   **Adapt** — remix, transform, and build upon the material.
+
+**Attribution** — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+
+Under the following terms
+
+**Non-Commercial** — You may not use the material for commercial purposes.
+
+**ShareAlike** — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
+
+**No additional restrictions** — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
