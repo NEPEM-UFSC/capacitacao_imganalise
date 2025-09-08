@@ -8,12 +8,12 @@ theme:
 website:
   search:
     location: sidebar
-  title: "pliman and plimanshiny for HTP"
+  title: "Internal Course - Image Analysis"
   page-footer:
     border: true
     background: light
-    left: "High-throughput phenotyping"
-    right: "Dr. Tiago Olivoto LEMGAD/NEPEM/UFSC "
+    left: "LEMGAD/NEPEM"
+    right: "Dr. Tiago Olivoto"
   page-navigation: true
   navbar:
     background: "#0759e8"
@@ -33,7 +33,6 @@ website:
     search: true
     contents:
         - 01_dia1.qmd
-        - 02_dia2.qmd
 
 format:
   html:
