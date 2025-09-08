@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Useful Information! – pliman and plimanshiny for HTP</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><style>html{ scroll-behavior: smooth; }</style>
+</head>
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">pliman and plimanshiny for HTP</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link active" href="./00_about.html" aria-current="page"> <i class="bi bi-fa fa-home" role="img">
+</i> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+<ul class="navbar-nav navbar-nav-scroll ms-auto">
+<li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/TiagoOlivoto"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Useful Information!</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_dia1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Scripts - 08/09/2025</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+ <span class="menu-text">02_dia2.qmd</span>
+  </li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">In this page</h2>
+   
+  <ul>
+<li><a href="#software" id="toc-software" class="nav-link active" data-scroll-target="#software"><span class="header-section-number">1</span> Software</a></li>
+  <li><a href="#restoring-the-r-environment-with-renv" id="toc-restoring-the-r-environment-with-renv" class="nav-link" data-scroll-target="#restoring-the-r-environment-with-renv"><span class="header-section-number">2</span> Restoring the R environment with renv</a></li>
+  <li><a href="#citation" id="toc-citation" class="nav-link" data-scroll-target="#citation"><span class="header-section-number">3</span> Citation</a></li>
+  <li><a href="#scripts" id="toc-scripts" class="nav-link" data-scroll-target="#scripts"><span class="header-section-number">4</span> Scripts</a></li>
+  <li><a href="#license" id="toc-license" class="nav-link" data-scroll-target="#license"><span class="header-section-number">5</span> License</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Useful Information!</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><p><img src="capa.jpg" class="img-fluid"></p>
+<p>This material provides the scripts and datasets necessary to reproduce the examples presented in the <strong>Plant Image Analysis Course</strong>, offered as part of NEPEM’s internal training program</p>
+<section id="software" class="level1" data-number="1"><h1 data-number="1">
+<span class="header-section-number">1</span> Software</h1>
+<p>To reproduce the examples in this material, you will need the latest versions o R and RStudio (Portuguese).</p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/e89kyYJgWqc" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<p><a class="btn btn-success" href="https://cran.r-project.org/bin/windows/base/" target="_blank"><i class="fa fa-save"></i> Download R</a></p>
+<p><a class="btn btn-success" href="https://www.rstudio.com/products/rstudio/download/" target="_blank"><i class="fa fa-save"></i> Download RStudio</a></p>
+</section><section id="restoring-the-r-environment-with-renv" class="level1" data-number="2"><h1 data-number="2">
+<span class="header-section-number">2</span> Restoring the R environment with renv</h1>
+<p>This command will install all required packages with the exact versions recorded in the <code>renv.lock</code> file.</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"renv"</span><span class="op">)</span></span>
+<span><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/activate.html">activate</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/restore.html">restore</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you later add new packages, run:</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/snapshot.html">snapshot</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="citation" class="level1" data-number="3"><h1 data-number="3">
+<span class="header-section-number">3</span> Citation</h1>
+<p><a href="https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.13803"><img src="paper.png" class="img-fluid"></a></p>
+<p>To cite the pliman package in your works, use the following reference:</p>
+<blockquote class="blockquote">
+<p>Olivoto T (2022). “Lights, camera, pliman! An R package for plant image analysis.” <strong>Methods in Ecology and Evolution</strong>, 13(4), 789-798. doi:10.1111/2041-210X.13803 <a href="https://doi.org/10.1111/2041-210X.13803" class="uri">https://doi.org/10.1111/2041-210X.13803</a>.</p>
+</blockquote>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"pliman"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Please, support this project by citing it in your publications!
+
+  Olivoto T (2022). "Lights, camera, pliman! An R package for plant
+  image analysis." _Methods in Ecology and Evolution_, *13*(4),
+  789-798. doi:10.1111/2041-210X.13803
+  &lt;https://doi.org/10.1111/2041-210X.13803&gt;.
+
+Uma entrada BibTeX para usuários(as) de LaTeX é
+
+  @Article{,
+    title = {Lights, camera, pliman! An R package for plant image analysis},
+    author = {Tiago Olivoto},
+    year = {2022},
+    journal = {Methods in Ecology and Evolution},
+    volume = {13},
+    number = {4},
+    pages = {789-798},
+    doi = {10.1111/2041-210X.13803},
+  }</code></pre>
+</div>
+</div>
+</section><section id="scripts" class="level1" data-number="4"><h1 data-number="4">
+<span class="header-section-number">4</span> Scripts</h1>
+<p>The .zip file contains a folder with the static website, structured as follows:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>D:/Desktop/UFSC/NEPEM/capacitações/capacitacao_imganalise
+├── 00_about.qmd
+├── 00_about.rmarkdown
+├── 01_dia1.qmd
+├── 20231001_144226.jpg
+├── 20231001_153711.jpg
+├── 20231001_160425.jpg
+├── 20231003_144448.jpg
+├── 20231005_112708.jpg
+├── 20231005_140911.jpg
+├── bacteria.jpg
+├── beans
+│   ├── G1042.jpg
+│   ├── G1080.jpg
+│   ├── G1083.jpg
+│   ├── G1106.jpg
+│   ├── G1113.jpg
+│   ├── G1149.jpg
+│   ├── G1173.jpg
+│   ├── G1205.jpg
+│   ├── G1261.jpg
+│   ├── G1264.jpg
+│   ├── G1265.jpg
+│   ├── G1320.jpg
+│   ├── G1328.jpg
+│   ├── G1354.jpg
+│   ├── G1356.jpg
+│   ├── G1358.jpg
+│   ├── G148.jpg
+│   ├── G166.jpg
+│   ├── G169.jpg
+│   ├── G229.jpg
+│   ├── G275.jpg
+│   ├── G278.jpg
+│   ├── G433.jpg
+│   ├── G478.jpg
+│   ├── G478A.jpg
+│   ├── G57.jpg
+│   ├── G623.jpg
+│   ├── G685.jpg
+│   ├── G686.jpg
+│   ├── G731.jpg
+│   ├── G734.jpg
+│   ├── G735.jpg
+│   ├── G738.jpg
+│   ├── G747.jpg
+│   ├── G753.jpg
+│   ├── G76.jpg
+│   ├── G799.jpg
+│   ├── G801.jpg
+│   ├── G803.jpg
+│   ├── G811.jpg
+│   ├── G818.jpg
+│   ├── G840.jpg
+│   ├── G842.jpg
+│   ├── G843.jpg
+│   ├── G847.jpg
+│   ├── G855.jpg
+│   ├── G857.jpg
+│   ├── G87.jpg
+│   ├── G908.jpg
+│   ├── G917.jpg
+│   ├── G92.jpg
+│   ├── G955.jpg
+│   ├── G983.jpg
+│   ├── G994.jpg
+│   └── G995.jpg
+├── capa.jpg
+├── capacitacao_imganalise.Rproj
+├── capsulas.jpg
+├── dose_response
+│   ├── img_P1_0,01.JPG
+│   ├── img_P1_0,1.JPG
+│   ├── img_P1_0.JPG
+│   ├── img_P1_1.JPG
+│   ├── img_P1_10.JPG
+│   ├── img_P1_100.JPG
+│   ├── img_P1_50.JPG
+│   ├── img_P2_0,01.JPG
+│   ├── img_P2_0,1.JPG
+│   ├── img_P2_0.JPG
+│   ├── img_P2_1.JPG
+│   ├── img_P2_10.JPG
+│   ├── img_P2_100.JPG
+│   └── img_P2_50.JPG
+├── feijoes.jpg
+├── flax.jpg
+├── flax2.jpg
+├── flax_capsules
+│   ├── 00a9b780-f098-44c5-aca7-5c77501e18a8.jpg
+│   ├── 07e8fdca-1759-40bc-8980-7f4d1e615fdf.jpg
+│   ├── 0ae6225f-2f07-493f-95fe-e4269cbdad04.jpg
+│   ├── 0ed81196-d1a7-43a3-931e-fe89b9900d69.jpg
+│   ├── 1a7003e4-9875-4ea8-a997-72e2aac9609f.jpg
+│   ├── 1d3d59fe-b2be-4b3a-9591-23f0e8fc3050.jpg
+│   ├── 1e026706-6791-4c23-b303-6dfb992de42a.jpg
+│   ├── 1ef7aa9f-6d88-42c0-a368-c412922c01ad.jpg
+│   ├── 2bd6eeee-17d9-404d-8773-5d57e58f64ed.jpg
+│   ├── 2f14ceef-5911-44b7-a6bc-18ddde1af0e1.jpg
+│   ├── 3b1121ba-0537-4633-bd51-072b735b0505.jpg
+│   ├── 3b8afc6f-1d77-4a5a-94c6-f711db3ddeba.jpg
+│   ├── 3d0d5f74-b940-42a6-a25c-015d4173f008.jpg
+│   ├── 3d17e772-6f86-4da7-a63a-c62bee734473.jpg
+│   ├── 3d7da214-4fb3-47a6-9537-94594c2d5ec9.jpg
+│   ├── 3e655e2f-4fe4-45d9-850f-bfe3e8745efb.jpg
+│   ├── 3eca5ca7-32a4-4d9f-a2a2-0935bac4515d.jpg
+│   ├── 4a687771-5efe-4d17-b2d9-dcec925b2303.jpg
+│   ├── 4bb0e537-f199-4d0a-8a39-d83d4c9701c0.jpg
+│   ├── 4c268db3-5281-44f0-868e-906f7f1272c4.jpg
+│   ├── 4dfccab2-1131-45b5-b7c9-4b0b1b4351b5.jpg
+│   ├── 4e52db5c-7995-48ee-9403-cff399d58478.jpg
+│   ├── 5a656b43-cc88-42a3-baa2-4570191311c3.jpg
+│   ├── 5aa4e11b-70df-427a-b385-6b83159d493a.jpg
+│   ├── 5ae8b265-9e47-4b8e-8188-add077c06ceb.jpg
+│   ├── 5b8d4be8-018a-4352-9ce7-dc8ad05ee212.jpg
+│   ├── 5d46b89e-55ba-488d-9943-72fee6d7703b.jpg
+│   ├── 5d6a82d3-73b0-47f2-8e1d-2608e9f50801.jpg
+│   ├── 5fecda17-4962-4993-9b1b-53fcc63f9817.jpg
+│   ├── 6ab11a67-acdf-45cb-a137-512a54c1b186.jpg
+│   ├── 6aec1433-98ee-447a-aadb-42c5bdfd1c72.jpg
+│   ├── 6ba1454f-bad6-4b1b-b01c-bbee963d01f1.jpg
+│   ├── 6bd11461-3ccc-4515-b4b4-8bdeae3476db.jpg
+│   ├── 6cfef61f-d030-43be-aeaf-8e4982bf1ebf.jpg
+│   ├── 6d40d5e9-1f86-4c3b-bfc6-8031c52bd804.jpg
+│   ├── 6e258ac8-8bf4-4351-906f-4fb8b8d37adb.jpg
+│   ├── 6f1c0231-ba12-472d-bd0a-fa505aa84563.jpg
+│   ├── 6fe29997-6522-46e3-92b3-1dcbf0549cb8.jpg
+│   ├── 7b7b10f2-bb3a-4de5-85b5-fe58c1849f15.jpg
+│   ├── 7e1b2853-e6f9-42fb-ab72-6613200f5d61.jpg
+│   ├── 8dae31df-8b4f-48f1-96dd-ac8e584fdd1b.jpg
+│   ├── 8ff14fb7-245b-4609-b34e-0bdcb532a7b5.jpg
+│   ├── 8ff43058-f7f3-4bec-acff-9feabd9eaddd.jpg
+│   ├── 9b158211-ec56-4938-ad4c-68f35f8fcc7c.jpg
+│   ├── 9b8c1000-1a2a-4595-8bff-455cedac64af.jpg
+│   ├── 9bdadeba-444a-4e16-9a7b-ebf19178f334.jpg
+│   ├── 9cfb5cf6-87e6-4705-9d28-bb8e316a3809.jpg
+│   ├── 9da02a71-c64b-42e4-8767-98211ecf957f.jpg
+│   ├── 9db67654-2fed-4dd0-b73c-6e4a9b9c03f0.jpg
+│   └── 9deadf98-c274-4c3c-8412-9fa0a7b31821.jpg
+├── flax_grains
+│   ├── 00a9b780-f098-44c5-aca7-5c77501e18a8.jpg
+│   ├── 07e8fdca-1759-40bc-8980-7f4d1e615fdf.jpg
+│   ├── 0ae6225f-2f07-493f-95fe-e4269cbdad04.jpg
+│   ├── 0ed81196-d1a7-43a3-931e-fe89b9900d69.jpg
+│   ├── 1a7003e4-9875-4ea8-a997-72e2aac9609f.jpg
+│   ├── 1d3d59fe-b2be-4b3a-9591-23f0e8fc3050.jpg
+│   ├── 1e026706-6791-4c23-b303-6dfb992de42a.jpg
+│   ├── 1ef7aa9f-6d88-42c0-a368-c412922c01ad.jpg
+│   ├── 2bd6eeee-17d9-404d-8773-5d57e58f64ed.jpg
+│   ├── 2f14ceef-5911-44b7-a6bc-18ddde1af0e1.jpg
+│   ├── 3b1121ba-0537-4633-bd51-072b735b0505.jpg
+│   ├── 3b8afc6f-1d77-4a5a-94c6-f711db3ddeba.jpg
+│   ├── 3d0d5f74-b940-42a6-a25c-015d4173f008.jpg
+│   ├── 3d17e772-6f86-4da7-a63a-c62bee734473.jpg
+│   ├── 3d7da214-4fb3-47a6-9537-94594c2d5ec9.jpg
+│   ├── 3e655e2f-4fe4-45d9-850f-bfe3e8745efb.jpg
+│   ├── 3eca5ca7-32a4-4d9f-a2a2-0935bac4515d.jpg
+│   ├── 4a687771-5efe-4d17-b2d9-dcec925b2303.jpg
+│   ├── 4bb0e537-f199-4d0a-8a39-d83d4c9701c0.jpg
+│   ├── 4c268db3-5281-44f0-868e-906f7f1272c4.jpg
+│   ├── 4dfccab2-1131-45b5-b7c9-4b0b1b4351b5.jpg
+│   ├── 4e52db5c-7995-48ee-9403-cff399d58478.jpg
+│   ├── 5a656b43-cc88-42a3-baa2-4570191311c3.jpg
+│   ├── 5aa4e11b-70df-427a-b385-6b83159d493a.jpg
+│   ├── 5ae8b265-9e47-4b8e-8188-add077c06ceb.jpg
+│   ├── 5b8d4be8-018a-4352-9ce7-dc8ad05ee212.jpg
+│   ├── 5d46b89e-55ba-488d-9943-72fee6d7703b.jpg
+│   ├── 5d6a82d3-73b0-47f2-8e1d-2608e9f50801.jpg
+│   ├── 5fecda17-4962-4993-9b1b-53fcc63f9817.jpg
+│   ├── 6ab11a67-acdf-45cb-a137-512a54c1b186.jpg
+│   ├── 6aec1433-98ee-447a-aadb-42c5bdfd1c72.jpg
+│   ├── 6ba1454f-bad6-4b1b-b01c-bbee963d01f1.jpg
+│   ├── 6bd11461-3ccc-4515-b4b4-8bdeae3476db.jpg
+│   ├── 6cfef61f-d030-43be-aeaf-8e4982bf1ebf.jpg
+│   ├── 6d40d5e9-1f86-4c3b-bfc6-8031c52bd804.jpg
+│   ├── 6e258ac8-8bf4-4351-906f-4fb8b8d37adb.jpg
+│   ├── 6f1c0231-ba12-472d-bd0a-fa505aa84563.jpg
+│   ├── 6fe29997-6522-46e3-92b3-1dcbf0549cb8.jpg
+│   ├── 7b7b10f2-bb3a-4de5-85b5-fe58c1849f15.jpg
+│   ├── 7e1b2853-e6f9-42fb-ab72-6613200f5d61.jpg
+│   ├── 8dae31df-8b4f-48f1-96dd-ac8e584fdd1b.jpg
+│   ├── 8ff14fb7-245b-4609-b34e-0bdcb532a7b5.jpg
+│   ├── 8ff43058-f7f3-4bec-acff-9feabd9eaddd.jpg
+│   ├── 9b158211-ec56-4938-ad4c-68f35f8fcc7c.jpg
+│   ├── 9b8c1000-1a2a-4595-8bff-455cedac64af.jpg
+│   ├── 9bdadeba-444a-4e16-9a7b-ebf19178f334.jpg
+│   ├── 9cfb5cf6-87e6-4705-9d28-bb8e316a3809.jpg
+│   ├── 9da02a71-c64b-42e4-8767-98211ecf957f.jpg
+│   ├── 9db67654-2fed-4dd0-b73c-6e4a9b9c03f0.jpg
+│   └── 9deadf98-c274-4c3c-8412-9fa0a7b31821.jpg
+├── flax_leaves
+│   ├── IMG_6072.JPG
+│   ├── IMG_6073.JPG
+│   ├── IMG_6074.JPG
+│   ├── IMG_6075.JPG
+│   ├── IMG_6076.JPG
+│   ├── IMG_6077.JPG
+│   ├── IMG_6078.JPG
+│   ├── IMG_6079.JPG
+│   ├── IMG_6080.JPG
+│   ├── IMG_6081.JPG
+│   ├── IMG_6082.JPG
+│   ├── IMG_6083.JPG
+│   ├── IMG_6084.JPG
+│   ├── IMG_6085.JPG
+│   ├── IMG_6086.JPG
+│   ├── IMG_6087.JPG
+│   ├── IMG_6088.JPG
+│   ├── IMG_6089.JPG
+│   ├── IMG_6090.JPG
+│   ├── IMG_6091.JPG
+│   ├── IMG_6092.JPG
+│   ├── IMG_6093.JPG
+│   ├── IMG_6094.JPG
+│   ├── IMG_6095.JPG
+│   ├── IMG_6096.JPG
+│   ├── IMG_6097.JPG
+│   ├── IMG_6098.JPG
+│   ├── IMG_6099.JPG
+│   ├── IMG_6100.JPG
+│   ├── IMG_6101.JPG
+│   ├── IMG_6102.JPG
+│   ├── IMG_6103.JPG
+│   ├── IMG_6104.JPG
+│   ├── IMG_6105.JPG
+│   ├── IMG_6106.JPG
+│   ├── IMG_6107.JPG
+│   ├── IMG_6108.JPG
+│   ├── IMG_6109.JPG
+│   ├── IMG_6110.JPG
+│   ├── IMG_6111.JPG
+│   ├── IMG_6112.JPG
+│   ├── IMG_6113.JPG
+│   ├── IMG_6114.JPG
+│   ├── IMG_6115.JPG
+│   ├── IMG_6116.JPG
+│   ├── IMG_6117.JPG
+│   ├── IMG_6118.JPG
+│   ├── IMG_6119.JPG
+│   ├── IMG_6120.JPG
+│   ├── IMG_6121.JPG
+│   ├── IMG_6122.JPG
+│   ├── IMG_6123.JPG
+│   ├── IMG_6124.JPG
+│   ├── IMG_6125.JPG
+│   ├── IMG_6126.JPG
+│   ├── IMG_6127.JPG
+│   ├── IMG_6128.JPG
+│   ├── IMG_6129.JPG
+│   ├── IMG_6130.JPG
+│   ├── IMG_6131.JPG
+│   ├── IMG_6132.JPG
+│   ├── IMG_6133.JPG
+│   ├── IMG_6134.JPG
+│   ├── IMG_6135.JPG
+│   ├── IMG_6136.JPG
+│   ├── IMG_6137.JPG
+│   ├── IMG_6138.JPG
+│   ├── IMG_6139.JPG
+│   ├── IMG_6140.JPG
+│   ├── IMG_6141.JPG
+│   ├── IMG_6142.JPG
+│   ├── IMG_6143.JPG
+│   ├── IMG_6144.JPG
+│   ├── IMG_6145.JPG
+│   ├── IMG_6146.JPG
+│   ├── IMG_6147.JPG
+│   ├── IMG_6148.JPG
+│   ├── IMG_6149.JPG
+│   ├── IMG_6150.JPG
+│   ├── IMG_6151.JPG
+│   ├── IMG_6152.JPG
+│   ├── IMG_6153.JPG
+│   ├── IMG_6154.JPG
+│   ├── IMG_6155.JPG
+│   ├── IMG_6156.JPG
+│   ├── IMG_6157.JPG
+│   ├── IMG_6158.JPG
+│   ├── IMG_6159.JPG
+│   ├── IMG_6160.JPG
+│   ├── IMG_6161.JPG
+│   ├── IMG_6162.JPG
+│   ├── IMG_6163.JPG
+│   ├── IMG_6164.JPG
+│   ├── IMG_6165.JPG
+│   ├── IMG_6166.JPG
+│   ├── IMG_6167.JPG
+│   ├── IMG_6168.JPG
+│   ├── IMG_6169.JPG
+│   ├── IMG_6170.JPG
+│   ├── IMG_6171.JPG
+│   ├── IMG_6172.JPG
+│   ├── IMG_6173.JPG
+│   ├── IMG_7287.JPG
+│   ├── IMG_7288.JPG
+│   ├── IMG_7289.JPG
+│   ├── IMG_7290.JPG
+│   ├── IMG_7291.JPG
+│   ├── IMG_7292.JPG
+│   ├── IMG_7293.JPG
+│   ├── IMG_7294.JPG
+│   ├── IMG_7295.JPG
+│   ├── IMG_7296.JPG
+│   ├── IMG_7297.JPG
+│   ├── IMG_7298.JPG
+│   ├── IMG_7299.JPG
+│   ├── IMG_7300.JPG
+│   ├── IMG_7301.JPG
+│   ├── IMG_7302.JPG
+│   ├── IMG_7303.JPG
+│   ├── IMG_7304.JPG
+│   ├── IMG_7305.JPG
+│   ├── IMG_7306.JPG
+│   ├── IMG_7307.JPG
+│   ├── IMG_7308.JPG
+│   ├── IMG_7309.JPG
+│   ├── IMG_7310.JPG
+│   ├── IMG_7311.JPG
+│   ├── IMG_7312.JPG
+│   ├── IMG_7313.JPG
+│   ├── IMG_7314.JPG
+│   ├── IMG_7315.JPG
+│   ├── IMG_7316.JPG
+│   ├── IMG_7317.JPG
+│   ├── IMG_7318.JPG
+│   ├── IMG_7319.JPG
+│   ├── IMG_7320.JPG
+│   ├── IMG_7321.JPG
+│   ├── IMG_7322.JPG
+│   ├── IMG_7323.JPG
+│   ├── IMG_7324.JPG
+│   ├── IMG_7325.JPG
+│   ├── IMG_7326.JPG
+│   ├── IMG_7327.JPG
+│   ├── IMG_7328.JPG
+│   ├── IMG_7329.JPG
+│   ├── IMG_7330.JPG
+│   ├── IMG_7331.JPG
+│   ├── IMG_7332.JPG
+│   ├── IMG_7333.JPG
+│   ├── IMG_7334.JPG
+│   ├── IMG_7335.JPG
+│   ├── IMG_7336.JPG
+│   ├── IMG_7337.JPG
+│   ├── IMG_7338.JPG
+│   ├── IMG_7339.JPG
+│   ├── IMG_7340.JPG
+│   ├── IMG_7341.JPG
+│   ├── IMG_7342.JPG
+│   ├── IMG_7343.JPG
+│   ├── IMG_7344.JPG
+│   ├── IMG_7345.JPG
+│   ├── IMG_7346.JPG
+│   ├── IMG_7347.JPG
+│   ├── IMG_7348.JPG
+│   ├── IMG_7349.JPG
+│   ├── IMG_7350.JPG
+│   ├── IMG_7351.JPG
+│   ├── IMG_7352.JPG
+│   ├── IMG_7353.JPG
+│   ├── IMG_7354.JPG
+│   ├── IMG_7355.JPG
+│   ├── IMG_7356.JPG
+│   ├── IMG_7357.JPG
+│   ├── IMG_7358.JPG
+│   ├── IMG_7359.JPG
+│   ├── IMG_7360.JPG
+│   ├── IMG_7361.JPG
+│   ├── IMG_7362.JPG
+│   ├── IMG_7363.JPG
+│   ├── IMG_7364.JPG
+│   ├── IMG_7365.JPG
+│   ├── IMG_7366.JPG
+│   ├── IMG_7367.JPG
+│   ├── IMG_7368.JPG
+│   ├── IMG_7369.JPG
+│   ├── IMG_7370.JPG
+│   ├── IMG_7371.JPG
+│   ├── IMG_7372.JPG
+│   ├── IMG_7373.JPG
+│   ├── IMG_7374.JPG
+│   ├── IMG_7375.JPG
+│   ├── IMG_7376.JPG
+│   ├── IMG_7377.JPG
+│   ├── IMG_7378.JPG
+│   ├── IMG_7379.JPG
+│   ├── IMG_7380.JPG
+│   ├── IMG_7381.JPG
+│   ├── IMG_7382.JPG
+│   ├── IMG_7383.JPG
+│   ├── IMG_7384.JPG
+│   ├── IMG_7385.JPG
+│   ├── IMG_7386.JPG
+│   ├── IMG_7387.JPG
+│   └── IMG_7388.JPG
+├── flax_ref.JPG
+├── fungi.jpg
+├── leaves.jpg
+├── maize.jpg
+├── paper.png
+├── pollen.jpg
+├── potato.jpg
+├── Rplots.pdf
+├── sevsoja
+│   ├── soy_1.jpg
+│   ├── soy_10.jpg
+│   ├── soy_11.jpg
+│   ├── soy_12.jpg
+│   ├── soy_13.jpg
+│   ├── soy_14.jpg
+│   ├── soy_15.jpg
+│   ├── soy_16.jpg
+│   ├── soy_17.jpg
+│   ├── soy_18.jpg
+│   ├── soy_19.jpg
+│   ├── soy_2.jpg
+│   ├── soy_20.jpg
+│   ├── soy_21.jpg
+│   ├── soy_22.jpg
+│   ├── soy_23.jpg
+│   ├── soy_24.jpg
+│   ├── soy_25.jpg
+│   ├── soy_26.jpg
+│   ├── soy_27.jpg
+│   ├── soy_28.jpg
+│   ├── soy_29.jpg
+│   ├── soy_3.jpg
+│   ├── soy_30.jpg
+│   ├── soy_31.jpg
+│   ├── soy_32.jpg
+│   ├── soy_33.jpg
+│   ├── soy_34.jpg
+│   ├── soy_35.jpg
+│   ├── soy_36.jpg
+│   ├── soy_37.jpg
+│   ├── soy_38.jpg
+│   ├── soy_39.jpg
+│   ├── soy_4.jpg
+│   ├── soy_40.jpg
+│   ├── soy_41.jpg
+│   ├── soy_42.jpg
+│   ├── soy_43.jpg
+│   ├── soy_44.jpg
+│   ├── soy_45.jpg
+│   ├── soy_46.jpg
+│   ├── soy_47.jpg
+│   ├── soy_48.jpg
+│   ├── soy_49.jpg
+│   ├── soy_5.jpg
+│   ├── soy_50.jpg
+│   ├── soy_6.jpg
+│   ├── soy_7.jpg
+│   ├── soy_8.jpg
+│   └── soy_9.jpg
+├── sev_leaves.JPG
+├── smaller
+│   ├── 20231001_144226.jpg
+│   ├── 20231001_153711.jpg
+│   ├── 20231001_160425.jpg
+│   ├── 20231003_144448.jpg
+│   ├── 20231005_112708.jpg
+│   └── 20231005_140911.jpg
+├── videira.png
+├── videira_background.jpg
+├── videira_disease.jpg
+├── videira_healthy.jpg
+├── _quarto.yml
+└── _site
+    ├── 00_about.html
+    ├── 01_dia1.html
+    ├── 01_dia1_files
+    ├── capa.jpg
+    ├── index.html
+    ├── paper.png
+    ├── search.json
+    └── site_libs</code></pre>
+</div>
+</div>
+<p>The material in HTML (_site/index.html) will give you access to the site, where you can view all examples, with codes and outputs. To reproduce the material, simply use the *.qmd files.</p>
+<p>For reproduction, it is suggested to set the <code>htp_cbmp2025</code> folder as the default directory. You can easily set the directory by running the following command, assuming you have the <code>00_about.qmd</code> script open.</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">pliman</span><span class="fu">::</span><span class="fu"><a href="https://nepem-ufsc.github.io/pliman/reference/utils_wd.html">set_wd_here</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="license" class="level1" data-number="5"><h1 data-number="5">
+<span class="header-section-number">5</span> License</h1>
+<p><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank"><img src="https://raw.githubusercontent.com/TiagoOlivoto/tiagoolivoto/master/static/img/gemsr/license.jpg" alt="Creative Commons License" style="border-width:0" width="150" height="40"></a><br>This content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>. The human-readable summary of the license states that you have the right to:</p>
+<ul>
+<li>
+<strong>Share</strong> — copy and redistribute the material in any medium or format.</li>
+<li>
+<strong>Adapt</strong> — remix, transform, and build upon the material.</li>
+</ul>
+<p><strong>Attribution</strong> — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.</p>
+<p>Under the following terms</p>
+<p><strong>Non-Commercial</strong> — You may not use the material for commercial purposes.</p>
+<p><strong>ShareAlike</strong> — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</p>
+<p><strong>No additional restrictions</strong> — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.</p>
+
+
+<!-- -->
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb7" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Useful Information!"</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="al">![](capa.jpg)</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>This material provides the scripts and datasets necessary to reproduce the examples presented in the **Plant Image Analysis Course**, offered as part of NEPEM’s internal training program</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu"># Software</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>To reproduce the examples in this material, you will need the latest versions o R and RStudio (Portuguese).</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>{{&lt; video https://www.youtube.com/embed/e89kyYJgWqc &gt;}}</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>&lt;a class="btn btn-success" href="https://cran.r-project.org/bin/windows/base/" target="_blank"&gt;&lt;i class="fa fa-save"&gt;&lt;/i&gt; Download R&lt;/a&gt;</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>&lt;a class="btn btn-success" href="https://www.rstudio.com/products/rstudio/download/" target="_blank"&gt;&lt;i class="fa fa-save"&gt;&lt;/i&gt; Download RStudio&lt;/a&gt;</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="fu"># Restoring the R environment with renv</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>This command will install all required packages with the exact versions recorded in the <span class="in">`renv.lock`</span> file. </span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval = FALSE}</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="in">install.packages("renv")</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="in">renv::activate()</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="in">renv::restore()</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>If you later add new packages, run:</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval = FALSE}</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="in">renv::snapshot()</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="fu"># Citation</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="al">![](paper.png)</span><span class="co">](https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.13803)</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>To cite the pliman package in your works, use the following reference:</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;  Olivoto T (2022). “Lights, camera, pliman! An R package for plant image analysis.” **Methods in Ecology</span></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a><span class="at">  and Evolution**, 13(4), 789-798. doi:10.1111/2041-210X.13803 </span><span class="ot">&lt;https://doi.org/10.1111/2041-210X.13803&gt;</span><span class="at">.</span></span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a><span class="fu">citation</span>(<span class="st">"pliman"</span>)</span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a><span class="fu"># Scripts</span></span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>The .zip file contains a folder with the static website, structured as follows:</span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=FALSE}</span></span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a><span class="in">library(fs)</span></span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a><span class="in">fs::dir_tree("D:/Desktop/UFSC/NEPEM/capacitações/capacitacao_imganalise", recurse = 1)</span></span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>The material in HTML (<span class="sc">\_</span>site/index.html) will give you access to the site, where you can view all examples, with codes and outputs. To reproduce the material, simply use the <span class="sc">\*</span>.qmd files.</span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>For reproduction, it is suggested to set the <span class="in">`htp_cbmp2025`</span> folder as the default directory. You can easily set the directory by running the following command, assuming you have the <span class="in">`00_about.qmd`</span> script open.</span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a><span class="in">pliman::set_wd_here()</span></span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a><span class="fu"># License</span></span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a>&lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener"&gt;&lt;img src="https://raw.githubusercontent.com/TiagoOlivoto/tiagoolivoto/master/static/img/gemsr/license.jpg" alt="Creative Commons License" style="border-width:0" width="150" height="40"/&gt;&lt;/a&gt;&lt;br /&gt;This content is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"&gt;CC BY-NC-SA 4.0&lt;/a&gt;. The human-readable summary of the license states that you have the right to:</span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Share** — copy and redistribute the material in any medium or format.</span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Adapt** — remix, transform, and build upon the material.</span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a>**Attribution** — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.</span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a>Under the following terms</span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a>**Non-Commercial** — You may not use the material for commercial purposes.</span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a>**ShareAlike** — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a>**No additional restrictions** — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.</span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+<p>High-throughput phenotyping</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Dr.&nbsp;Tiago Olivoto LEMGAD/NEPEM/UFSC</p>
+</div>
+  </div>
+</footer>
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

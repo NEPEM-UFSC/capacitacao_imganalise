@@ -4,7 +4,7 @@ title: "Useful Information!"
 
 ![](capa.jpg)
 
-This material provides the scripts and datasets necessary to reproduce the examples presented in the **Plant Image Analysis Course*, offered as part of NEPEM’s internal training program
+This material provides the scripts and datasets necessary to reproduce the examples presented in the **Plant Image Analysis Course**, offered as part of NEPEM’s internal training program
 
 # Software
 

@@ -1,0 +1,1075 @@
+---
+title: "Scripts - 08/09/2025"
+---
+
+
+# Packages and directory
+
+```{r}
+#| warning: false
+library(pliman)
+library(tidyverse)
+library(ggridges)
+
+```
+
+
+# Import and Manipulate
+## Import and Display
+### Import Images
+```{r }
+img <- image_import("20231001_153711.jpg")
+plot(img)
+
+```
+
+To import a list of images, use a vector of image names or the `pattern` argument. In the latter case, all images matching the specified pattern will be imported into a list.
+
+```{r import2}
+img_list1 <- image_import(c("20231001_153711.jpg", "20231001_160425.jpg"))
+```
+
+### Display Images
+Individual images are displayed with `plot()`. To combine images, use the `image_combine()` function. Users can input a comma-separated list of objects or a list of objects of the Image class.
+
+```{r display1}
+#| out-width: "100%"
+# Individual images
+plot(img)
+```
+
+```{r display2}
+#| out-width: "100%"
+# Combine images
+image_combine(img_list1)
+```
+
+pliman provides a set of `image_*()` functions for performing image manipulation and transformation of single images or a list of images based on the EBImage package.
+
+## Resolution
+
+### Image Resolution (DPI) {#dpi}
+The `dpi()` function performs an interactive function to calculate the image resolution based on a known distance entered by the user. To calculate the image resolution (DPI), the user should use the left mouse button to create a known distance line. This can be done, for example, using a known distance model, as follows.
+
+```{r}
+#| eval: false
+
+#  this only works in an interactive section
+(imgres <- dpi(img))
+
+```
+
+### Resize an Image
+Sometimes, it is necessary to resize high-resolution images to reduce computational effort and processing time. The `image_resize()` function is used to resize an image. The `rel_size` argument can be used to resize the image by relative size. For example, setting `rel_size = 50` for a 1280 x 720 pixels image, the new image will have a size of 640 x 360 pixels.
+
+```{r manipulate1}
+image_dimension(img)
+img_resized <- image_resize(img, rel_size = 50)
+image_dimension(img_resized)
+```
+
+## Apply a Function to Images
+```{r}
+apply_fun_to_imgs(pattern = "2023",
+                  image_resize,
+                  rel_size = 50,
+                  dir_processed = "smaller",
+                  plot = FALSE)
+```
+
+
+## Export
+To export images to the current directory, use the `image_export()` function. If a list of images is exported, the images will be saved considering the name and extension present in the list. If no extension is present, the images will be saved as `*.jpg` files.
+
+```{r export, eval=FALSE}
+image_export(img, "img_exported.jpg")
+
+# or a subfolder
+image_export(img, "test/img_exported.jpg")
+
+```
+
+
+
+# Principles of Image Analysis
+Image analysis using threshold is a technique that involves setting a threshold value for pixel intensity in an image. This technique is used to segment the image into two distinct classes: one class represents what is above the threshold (foreground) and the other class represents what is below the threshold (background). The process results in a binary image, where the objects of interest are highlighted in white on a black background. This approach is widely used in various applications, such as edge ...
+
+## Image Indexes
+The `image_index()` function constructs image indices using Red, Green, Blue, Red-Edge, and NIR bands.
+
+```{r}
+#| out-width: "100%"
+# Calculate indices
+indexes <- image_index(img, index = c("R, G, B, GRAY, L, B-G/(B+G)"))
+
+# Create a histogram with RGB values
+plot(indexes, type = "density")
+```
+
+In the case of the R index, the two peaks represent the leaf + reference (smaller peak) and the background (larger peak). The clearer the difference between these peaks, the better the image segmentation.
+
+## Binary Images
+To segment objects, pliman uses the threshold technique (Otsu, 1979)^[Otsu, N. 1979. Threshold selection method from gray-level histograms. IEEE Trans Syst Man Cybern SMC-9(1): 62–66. doi: 10.1109/tsmc.1979.4310076.], i.e., a cutoff point (considering pixel values) is chosen and the image is classified into two classes (foreground and background). Then, we have a binary image. We can produce this image with `image_binary()`. This binarization is the key process for all object analysis steps. The better t...
+
+```{r}
+#| out-width: "100%"
+
+image_index(img, index = "GRAY")
+otsu(indexes$GRAY)
+
+bin <- 
+  image_binary(img,  
+               index = "GRAY")
+
+```
+
+Note that some leaf pixels were considered background and some background pixels were considered foreground. We can improve this binarization by applying a morphological operation (such as median filter or oppening) and filling the holes with `fill_hull = TRUE`. See how changing the filter argument impacts the results.
+
+```{r}
+#| out-width: "100%"
+bin <- image_binary(img, 
+                    index = "GRAY", 
+                    fill_hull = TRUE,
+                    plot =  FALSE)[[1]]
+bin2 <- image_binary(img, 
+                     index = "GRAY", 
+                     fill_hull = TRUE,
+                     filter = 10,
+                     plot =  FALSE)[[1]]
+bin3 <- image_binary(img, 
+                     index = "GRAY",
+                     fill_hull = TRUE,
+                     opening = 10,
+                     plot =  FALSE)[[1]]
+
+image_combine(bin, bin2, bin3, ncol = 3)
+```
+
+
+## Segmentation
+In pliman, the following functions can be used to segment objects in images.
+
+`image_segment()` to produce a segmented image (objects in the image and a white background).
+`image_segment_iter()` to segment an image interactively.
+`image_segment_kmeans()` to segment an image using the k-means algorithm.
+`image_segment_manual()` to segment an image manually.
+`image_segment_mask()` to segment an image with a mask.
+
+Both functions segment the image based on the value of some image index, which can be one of the RGB channels or any operation with these channels.
+
+### Image Indices
+```{r}
+#| out-width: "100%"
+image_segment(img,
+              index = "G",
+              fill_hull = TRUE,
+              opening = 5)
+```
+
+## Object Analysis
+The key is to obtain the contour of the objects, so we work with polygons!
+
+> A 'polygon' is a plane figure described by a finite number of straight line segments connected to form a closed chain (Singer, 1993)[^1].
+
+[^1]: Singer, M.H. 1993. A general approach to moment calculation for polygons and line segments. Pattern Recognition 26(7): 1019--1028. doi: 10.1016/0031-3203(93)90003-F.
+
+We can then conclude that image objects can be expressed as polygons with `n` vertices. Pliman has a family of `poly_*()` functions that can be used to analyze polygons.
+
+```{r}
+#| out-width: "100%"
+#| 
+square <- draw_square() |> poly_close()
+poly_area(square)
+poly_perimeter(square)
+
+polygon <- draw_n_tagon(6)
+poly_area(polygon)
+
+```
+
+
+```{r}
+#| layout-ncol: 3
+#| layout-nrow: 2
+
+
+n <- c(6, 10, 50, 100, 1000, 100000)
+sapply(n, function(x){
+  draw_n_tagon(x) |> poly_area()
+})
+
+```
+
+### Contour
+```{r}
+#| out-width: "100%"
+
+img <- image_import("leaves.jpg")
+plot(img)
+
+# extract the contour
+cont <- object_contour(img, index = "B", watershed = FALSE)
+# Number of contour pixels
+nrow(cont[[1]])
+# contour coordinates
+head(cont[[1]])
+# polygon
+plot_polygon(cont[[1]])
+```
+
+### Measures
+In the current version of `pliman`, you can calculate the following measures. For more details, see Chen & Wang (2005)[^2], Claude (2008)[^3], and Montero et al. (2009)[^4].
+
+[^2]: Chen, CH and PSP. Wang. 2005. Handbook of Pattern Recognition and Computer Vision. 3rd edition. World Scientific.
+
+[^3]: Claude, J. 2008. Morphometrics with R. Springer.
+
+[^4]: Montero, RS, E. Bribiesca, R. Santiago, and E. Bribiesca. 2009. State of the Art of Compactness and Circularity Measures. International Mathematical Forum 4(27): 1305--1335.
+
+* Area
+
+The area of a shape is calculated using the Shoelace formula (Lee and Lim, 2017)[^5], as follows:
+
+$$
+A=\frac{1}{2}\left |\sum_{i=1}^{n}\left(x_{i} y_{i+1}-x_{i+1}y_{i}\right)\right|
+$$
+
+[^5]: Lee, Y., and W. Lim. 2017. Shoelace Formula: Connecting the Area of a Polygon and the Vector Cross Product. The Mathematics Teacher 110(8): 631--636. doi: 10.5951/MATHTEACHER.110.8.0631.
+
+```{r}
+poly_area(cont)
+```
+
+* Perimeter
+
+The perimeter is calculated as the sum of the Euclidean distance between all points of a shape. The distances can be obtained with `poly_distpts()`.
+
+```{r}
+poly_perimeter(cont)
+
+# perimeter of a circle with radius 2
+circle <- draw_circle(radius = 2, plot = FALSE)
+poly_perimeter(circle)
+
+# check the result
+2*pi*2
+```
+
+* Center of mass
+
+The center of mass of a shape, especially in two-dimensional space, represents the average position of all the points within that shape, weighted by their area (or mass if considering physical objects). It's the point at which the entire area (or mass) of the shape can be thought to be concentrated. In practical terms, if you were to balance a cut-out of the shape on a pinpoint, the center of mass is the location where it would balance perfectly.
+
+In a polygon (a shape made of straight-line segments), the center of mass is calculated by considering each segment's contribution to the overall shape, and its coordinates ($C_x$ and $C_y$) are given by
+
+$$
+\begin{aligned}
+C_x & =\frac{1}{6 A} \sum_{i=1}^n\left(x_i+x_{i+1}\right)\left(x_i y_{i+1}-x_{i+1} y_i\right) \\
+C_y & =\frac{1}{6 A} \sum_{i=1}^n\left(y_i+y_{i+1}\right)\left(x_i y_{i+1}-x_{i+1} y_i\right)
+\end{aligned}
+$$
+Where A, is the area given above.
+
+```{r}
+plot_polygon(cont[[1]])
+# centroid
+cent <- apply(cont[[1]], 2, mean)
+points(cent[1], cent[2], col = "red", pch = 19)  # Red dot for centroid
+
+# Center of mass
+cm <- poly_mass(cont[[1]])
+points(cm[1], cm[2], col = "blue", pch = 19)  # Blue dot for center of mass
+legend("topright",
+       legend = c("Centroid", "Center of Mass"), 
+       col = c("red", "blue"), pch = 19)
+```
+
+
+* Radius
+
+The radius of a pixel in the object's contour is calculated as its distance to the center of mass of the object. These distances can be obtained with `poly_centdist()`.
+
+```{r}
+dist <- poly_centdist_mass(cont[[1]])
+x <- c(cm[1], cont[[1]][1, 1])
+y <- c(cm[2], cont[[1]][1, 2])
+d1 <- sqrt(diff(x)^2 + diff(y)^2)
+dist[[1]]
+
+plot_polygon(cont[[1]])
+points(cm[1], cm[2], col = "blue", pch = 19)  # Blue dot for center of mass
+segments(x[1], y[1], x[2], y[2], col = "blue", lwd = 2)
+
+plot(dist, type = "l")
+```
+
+* Length and Width
+
+The length and width of an object are calculated with `poly_lw()`, as the difference between the maximum and minimum of the `x` and `y` coordinates after the object has been aligned with `poly_align()`.
+
+```{r fig.height =2, fig.width=10}
+
+# wrong measures
+plot_polygon(cont[[1]])
+lw <- apply(cont[[1]], 2, \(x){range(x)})
+abline(v = lw[[1]], col = "red")
+abline(v = lw[[2]], col = "red")
+abline(h = lw[[3]], col = "blue")
+abline(h = lw[[4]], col = "blue")
+
+
+# Correct measures
+aligned <- poly_align(cont[[1]])
+lw <- apply(aligned, 2, \(x){range(x)})
+abline(v = lw[[1]], col = "red")
+abline(v = lw[[2]], col = "red")
+abline(h = lw[[3]], col = "blue")
+abline(h = lw[[4]], col = "blue")
+diff(lw)
+
+# with poly_lw()
+poly_lw(cont[[1]])
+```
+
+
+* Circularity and Elongation
+
+Circularity (Montero et al. 2009)[^6] is also called shape compactness or a measure of the roundness of an object. It is given by $C = P^2 / A$, where $P$ is the perimeter and $A$ is the area of the object.
+
+[^6]: Montero, R.S., E. Bribiesca, R. Santiago, and E. Bribiesca. 2009. State of the Art of Compactness and Circularity Measures. International Mathematical Forum 4(27): 1305--1335
+
+```{r}
+poly_perimeter(cont) ^2 / poly_area(cont)
+poly_circularity(cont)
+```
+
+As the above measurement depends on scale, normalized circularity can be used. In this case, it is assumed that a perfect circle has a circularity equal to 1. This measure is invariant under translation, rotation, and scale transformations, given by $Cn = P^2 / 4 \pi A$
+
+```{r}
+poly_perimeter(circle) ^2 / (4 * pi * poly_area(circle))
+poly_circularity_norm(circle)
+poly_circularity_norm(cont)
+```
+
+`poly_elongation()` Calculates the elongation of an object as `1 - width / length`
+
+```{r}
+poly_elongation(circle)
+poly_elongation(cont)
+```
+
+* Perimeter Complexity (PVC)
+
+The [PVC](https://www.researchgate.net/publication/381301545_PCV_desvendando_a_complexidade_do_perimetro_de_objetos_em_analise_computacional_de_imagens) is first calculated by smoothing the input contour using a specified number of iterations. The smoothed contour is then used to calculate the distances between corresponding points in the original and smoothed coordinates. These distances reflect the variations in contour shape after smoothing. The sum of these distances represents the global magnitude of the variations. Next, the sum of the distances is multiplied by the standard deviation of the distances to capture the dispersion or spread of th...
+
+```{r}
+poly_pcv(circle)
+poly_pcv(cont)
+
+```
+
+
+# Object Counting and Measurements
+
+The `analyze_objects()` function is the key function in pliman to calculate a range of measurements that can be used to study the shape and texture of objects, such as leaves. In the following example, I show how to plot the length and width of each leaf in the following image.
+
+```{r}
+#| out-width: "100%"
+leaves <- image_import("flax2.jpg", plot = TRUE)
+
+image_index(leaves, "RGB", ncol = 3)
+
+leaves_meas <-
+  analyze_objects(leaves,
+                  marker = "id",
+                  index = "B")
+
+# plot width and length
+plot_measures(leaves_meas,
+              measure = "width",
+              col = "green",
+              hjust = -90)
+plot_measures(leaves_meas, 
+              measure = "length", 
+              vjust = 60,
+              col = "red")
+```
+
+
+# Measurement Correction
+## Known Resolution
+
+```{r}
+#| eval: false
+
+dpi(leaves)
+corrected <- get_measures(leaves_meas, dpi = 416)
+# plot width and length
+plot_measures(corrected,
+              measure = "width",
+              col = "green",
+              hjust = -90)
+plot_measures(corrected, 
+              measure = "length", 
+              vjust = 60,
+              col = "red")
+```
+
+## Reference Object (color)
+
+The `reference` argument can now be used to correct the measurements of objects even when images with different capture distances are used. This differs from the previous example in a subtle but crucial aspect: when `reference` is informed, batch processing can be used! In this example, the leaf area of the `leaves` image is quantified and corrected considering a 4 x 5 (20 cm$^2$) rectangle as a reference object. When `reference = TRUE` is informed in `analyze_objects()`, the function will perform a two-step object segmentation process:
+
+The first step consists of segmenting the foreground (leaves and reference object) from the background. For this, an image index is used and can be declared in the `back_fore_index` argument. The default (`back_fore_index = "R/(G/B)"`) is optimized to segment white backgrounds of green leaves and a blue reference object. Let's see the performance of this index in this example.
+
+```{r}
+#| out-width: "100%"
+ind <- image_index(leaves, index = "R/(G/B)", plot =  FALSE)[[1]]
+bin <- image_binary(leaves, index = "R/(G/B)", plot =  FALSE)[[1]]
+image_combine(ind, bin)
+# Segmenting the image
+seg1 <- image_segment(leaves, index = "R/(G/B)")
+```
+
+Good job! Now, we remove the background. The next step is to segment the objects and the reference model. Basically, we need to repeat the previous step isolating the reference.
+
+```{r}
+#| out-width: "100%"
+image_segment(seg1, "B-R")
+
+seg2 <- 
+  image_binary(seg1,
+               index = "B-R")
+# number of pixels in the reference object
+length(which(seg2$`B-R` != 1))
+```
+
+Now that we know the indices to be used for each segmentation, we can use the `analyze_objects` function to obtain the corrected measurements based on the reference object.
+
+```{r}
+#| out-width: "100%"
+res2 <- 
+  analyze_objects(leaves, 
+                  index = "B",
+                  reference = TRUE,
+                  reference_area = 20,
+                  back_fore_index = "R/(G/B)", # default
+                  fore_ref_index = "B-R",      # default
+                  marker = "width")
+
+```
+
+## Reference Object (size)
+
+A second option for correcting the measurements is to use a reference object that is smaller or larger than all the objects in the image. When this is the case, the `reference_larger` and `reference_smaller` arguments can be used to indicate when the largest/smallest object in the image should be used as a reference object. This is only valid when `reference` is set to `TRUE` and `reference_area` indicates the area of the reference object. **IMPORTANT**. When `reference_smaller` is used, objects with an area smaller than 1% of the average of all objects are ignored. This is used to remove possible noise in the image, such as dust. Therefore, make sure that the reference object has an area that will not be removed by this cutoff point.
+
+```{r}
+#| out-width: "100%"
+flaxref <- image_import("flax_ref.jpg", plot = TRUE)
+
+res2 <- 
+  analyze_objects(flaxref,
+                  index = "GRAY",
+                  reference = TRUE,
+                  reference_area = 6,
+                  reference_larger = TRUE,
+                  show_contour = FALSE,
+                  marker = "point")
+plot(res2)
+image_view(flaxref, object = res2)
+```
+
+
+
+# Batch Processing
+
+In image analysis, it is often necessary to process more than one image. In Pliman, batch processing can be done when the user specifies the `pattern` argument. This should indicate the file name pattern used to identify images to be imported. For example, if `pattern = "im"`, all images in the current working directory whose names match the pattern (e.g., img1, image1, im2) will be processed. Providing any number as a pattern (e.g., `pattern = "1"`) will select images that contain any number in their name. An error will be returned if the pattern matches any unsupported file (e.g., img1.pdf).
+
+If users need to analyze multiple images of the same sample, the images should share the same file name prefix, defined as the part of the file name preceding the first hyphen (-) or underscore (_). Then, when using `get_measures()`, measurements from leaf images called, for example, F1-1.jpeg, F1-2.jpeg, and F1-3.jpeg will be combined into a single image (F1), displayed in the merged object. This is useful, for example, to analyze large leaves that need to be split into multiple images or multiple leaves belonging to the same sample that cannot be scanned in a single image.
+
+In the following example, 36 images will be analyzed. These images are in the 'linhaca' folder and contain flax leaves from 12 evaluation dates, with three repetitions[^1]. Note that to ensure all images are processed, all images must share a common pattern, in this case ("A"). Here, I will use `pattern = "A"` to indicate that all images with this name pattern should be merged.
+
+[^1]: The images are from a cultivar evaluation experiment of flax at the Federal University of Santa Catarina - UFSC.
+
+```{r}
+#| out-width: "100%"
+res2 <-
+  analyze_objects_minimal(pattern = "-",
+                          index = "GRAY",
+                          show_contour = FALSE,
+                          marker = "point",
+                          marker_col = "red",
+                          dir_original = "flax_capsules",
+                          save_image = FALSE,
+                          dir_processed = "flax_capsules/proc",
+                          opening = 15)
+
+```
+
+
+
+
+
+
+# Spectral profile of objects
+
+## Flax leaves
+To obtain the RGB/HSV intensity of each object in the image, use the argument object_rgb = TRUE in the function analyze_objects().In the following example, we use the R, G, and B bands and their normalized values.The function pliman_indexes() returns the indexes available in the package.
+
+To calculate a specific index, simply insert a formula containing the values of R, G, or B (e.g., object_index = "B/G+R").
+
+```{r rgb2, out.width='100%'}
+img <- image_import("flax.jpg", plot = TRUE)
+plot(img)
+(indx <- pliman_indexes_rgb())
+
+flax_leaves <-
+  analyze_objects(img,
+                  index = "B",
+                  opening = 5,
+                  object_index = c("DGCI", "CIVE", "ERVI", "EGVI", "R", "G", "B"),
+                  pixel_level_index = TRUE,
+                  marker = "id")
+
+# PCA with the indexes
+ind <- summary_index(flax_leaves, type="var")
+```
+
+Now, let's plot the DGCI (Dark Green Color Index) on each object. The DGCI is based on the HSB (Hue, Saturation, and Brightness) spatial color and has been used as an indicator of green shade [^2]
+
+[^2]: Karcher, D.E., and M.D. Richardson. 2003. Quantifying Turfgrass Color Using Digital Image Analysis. Crop Science 43(3): 943--951. doi: 10.2135/cropsci2003.9430
+
+```{r, out.width='100%'}
+image_view(img, 
+           object = flax_leaves,
+           color_regions = custom_palette(c("yellow", "darkgreen")),
+           attribute = "DGCI")
+
+```
+
+
+
+## Color Texture
+
+Definitions and interpretations of various texture features calculated from the Gray Level Co-occurrence Matrix (GLCM).
+
+* ASM (Angular Second Moment):
+- Definition: Measures the uniformity or energy of the texture, calculated as the sum of squared elements in the GLCM.
+- Interpretation: Higher values indicate a more uniform texture; lower values suggest more variation.
+
+* CON (Contrast):
+- Definition: Measures local variations in the GLCM, calculating intensity contrast between a pixel and its neighbor.
+- Interpretation: High values indicate textures with sharp edges or strong intensity variations.
+
+* COR (Correlation):
+- Definition: Assesses the linear dependency of gray levels between neighboring pixels, measuring how correlated a pixel is to its neighbors.
+- Interpretation: High values indicate strong correlation, suggesting a predictable texture pattern.
+
+* VAR (Variance):
+- Definition: Measures the dispersion of gray levels in the GLCM, quantifying how much gray levels differ from the mean.
+- Interpretation: High variance indicates a wide range of intensity values, suggesting a more complex texture.
+
+* IDM (Inverse Difference Moment) or Local Homogeneity:
+- Definition: Measures the homogeneity of the texture, assigning higher weights to smaller gray-level differences.
+- Interpretation: Higher values indicate a more homogenous texture.
+
+* SAV (Sum Average):
+- Definition: Calculates the average of the sums of gray levels in the GLCM.
+- Interpretation: Reflects the average intensity of pixel pairs.
+
+* SVA (Sum Variance):
+- Definition: Measures the variability of the sum distribution in the GLCM.
+- Interpretation: High values indicate a wide spread of the sum distribution.
+
+* SEN (Sum Entropy):
+- Definition: Measures the randomness of the sum distribution in the GLCM.
+- Interpretation: High values indicate high randomness in the texture.
+
+* DVA (Difference Variance):
+- Definition: Measures the variability of the difference distribution in the GLCM.
+- Interpretation: High values suggest varied and complex texture patterns.
+
+* DEN (Difference Entropy):
+- Definition: Measures the randomness of the difference distribution in the GLCM.
+- Interpretation: High values indicate high unpredictability in the texture differences.
+
+* F12 (Difference Variance):
+- Definition: Another representation of Difference Variance, measuring the spread of differences in gray levels.
+
+* F13 (Angular Second Moment):
+- Definition: Another representation of ASM, measuring the uniformity of the texture.
+
+These features help in analyzing textures by quantifying uniformity, contrast, and randomness, crucial in applications like image classification and pattern recognition.
+
+```{r, out.width='100%'}
+
+imgtest <- 
+  image_import(c("beans/G166.jpg",
+                 "beans/G799.jpg"),
+               plot = TRUE)
+
+# Gray images
+image_index(imgtest[[1]], "GRAY")
+image_index(imgtest[[2]], "GRAY")
+
+# Angular Second Moment
+res <- 
+  lapply(imgtest, function(x){
+    analyze_objects(x,
+                    index = "B-R",
+                    haralick = TRUE, # texture features
+                    har_band = "GRAY",
+                    marker = "dva",
+                    marker_col = "green", 
+                    marker_size = 3,
+                    opening = 3,
+                    watershed = FALSE)
+  })
+
+# Batch Processing
+res <- 
+  analyze_objects(pattern = "G",
+                  dir_original = "beans",
+                  index = "B-R",
+                  haralick = TRUE, # texture features
+                  marker_col = "green", 
+                  opening = 10,
+                  watershed = FALSE,
+                  object_index = c("L", "a", "b*"),
+                  parallel = TRUE)
+
+dfpca <- 
+  left_join(res$results, res$object_index) |> 
+  select(img, L, a, `b*`, ent) |> 
+  group_by(img) |> 
+  summarise(across(where(is.numeric), mean)) |> 
+  column_to_rownames("img")
+
+library(factoextra)
+library(FactoMineR)
+
+a <- metan::clustering(dfpca, scale = TRUE)
+
+fviz_dend(a$hc, k = 5)
+pcam <- PCA(dfpca, graph = FALSE)
+fviz_pca_biplot(pcam, repel = TRUE)
+
+```
+
+
+```{r}
+img <- image_import("feijoes.jpg", resize = 50)
+scatt <-
+  object_scatter(
+    img,
+    index = "B-R",
+    watershed = FALSE,
+    erosion = 15,
+    filter = 10,
+    object_index = c("L", "a", "b*"),
+    x = "L",
+    y = "ent",
+    haralick = TRUE,
+    show_id = FALSE,
+    xlab = "Luminosidade",
+    ylab = "Entropia da GLCM",
+    scale = 0.15,
+    xy_ratio = 1.5
+  )
+
+```
+
+
+
+# Case Studies
+## Pollen Counting and Viability
+
+Image available [in this discussion](https://forum.image.sc/t/pollen-counting-approach-small-unidentifiable-objects-in-counting-included/63040)
+
+```{r}
+#| out-width: "100%"
+img <- image_import("pollen.jpg", plot = TRUE)
+res <-
+  analyze_objects(img,
+                  filter = 2,
+                  tolerance = 0.5,
+                  lower_noise = 0.3,
+                  show_contour = FALSE,
+                  index = "L*")
+size <- res$results
+ids <- size[size$area > 580, ]
+ids2 <- size[size$area <= 580, ]
+points(ids$x, ids$y, pch = 16)
+points(ids2$x, ids2$y, pch = 16, col = "yellow")
+
+
+legend("top",
+       c("Viable", "Not Viable"),
+       pch = 16,
+       ncol = 2,
+       col = c("black", "yellow"))
+prop <- nrow(ids) / (nrow(ids) + nrow(ids2)) * 100
+text(1020, -100,
+     labels = paste0("Count:", res$statistics$value[1]))
+text(1100, -60,
+     labels = paste0("Viable Pollen: ", round(prop, 3), "%"))
+```
+
+
+## Counting Corn Kernels on Cobs
+```{r}
+#| out-width: "100%"
+#| out-height: "10" 
+img <- image_import("maize.jpg", plot = TRUE)
+
+crop <- 
+  img |> 
+  image_crop(height = 52:1006,
+             plot = TRUE)
+
+res <-
+  analyze_objects(crop,
+                  filter = 10,
+                  index = "R",
+                  show_lw = TRUE,
+                  invert = TRUE,
+                  width_at = TRUE,
+                  watershed = FALSE)
+# largura ao longo do comprimento
+par(mfrow = c(1, 4))
+a <- lapply(res$contours, poly_width_at, at = "height", plot = TRUE)
+par(mfrow = c(1,1))
+
+# Counting the Kernels
+seg <- image_segment(crop,
+                     filter = 20,
+                     index = "R-B",
+                     col_background = "gray",
+                     invert = TRUE)
+
+image_index(seg, "L*")
+
+res <-
+  analyze_objects_shp(seg,
+                      ncol = 4,
+                      threshold = "adaptive",
+                      windowsize = 33,
+                      tolerance = 1,
+                      index = "L*-a",
+                      marker = "point",
+                      marker_col = "black",
+                      invert = TRUE,
+                      plot = TRUE,
+                      upper_size = 1200)
+
+# A correction factor will be needed here. Note that only nearly a half of the ear is analyzed
+res$statistics |> 
+  filter(stat == "n")
+```
+
+
+
+## Fourier Descriptors
+
+The available functions for contour analysis using Elliptical Fourier Descriptors were adapted from Claude (2088)[^3]
+
+[^3]: Claude, J. 2008. Morphometrics with R <https://link.springer.com/book/10.1007/978-0-387-77789-4>
+
+The following example shows how to extract Fourier descriptors from sweet potato leaves, derived from an experiment conducted by the NEOSC group at UFSC.
+
+```{r}
+#| out-width: "100%"
+img <- image_import("potato.jpg") 
+
+# Contours
+cont <- object_contour(img,
+                       index = "R",
+                       plot = FALSE,
+                       watershed = FALSE)
+# removing the reference
+plot_polygon(cont)
+cont <- cont[-which(names(cont) == "9")]
+plot_polygon(cont)
+
+# Compute the Fourier descriptors
+fourier <- efourier(cont, nharm = 30)
+fourier_inv5 <- efourier_inv(fourier, nharm = 5)
+fourier_inv10 <- efourier_inv(fourier, nharm = 10)
+fourier_inv20 <- efourier_inv(fourier, nharm = 20)
+
+# Plot the estimated contour with different harmonics
+plot(img)
+plot_contour(cont, col = "red", lwd = 1)
+plot_contour(fourier_inv5, col = "blue", lwd = 3)
+plot_contour(fourier_inv10, col = "green", lwd = 3)
+plot_contour(fourier_inv20, col = "salmon", lwd = 3)
+
+
+# or using the analyze_objects() function
+# Contours
+res <- 
+  analyze_objects(img, 
+                  marker = "id",
+                  watershed = FALSE,
+                  reference = TRUE,
+                  reference_area = 20,
+                  efourier = TRUE,
+                  nharm = 15,
+                  plot = FALSE)
+image_view(img,
+           object = res,
+           alpha = 0.3,
+           attribute = "solidity")
+
+coefs <- res$efourier_norm
+
+pca <- 
+  coefs |> 
+  select(id:D15) |> 
+  pliman::column_to_rownames("id") |> 
+  select(-A1)
+
+library(factoextra)
+library(FactoMineR)
+pcam <- PCA(pca, graph = FALSE)
+fviz_pca_ind(pcam)
+```
+
+
+
+
+# Phytopathometry
+```{r}
+#| warning: false
+library(pliman)
+library(tidyverse)
+library(drda)
+```
+
+## Using Color Palettes
+
+Color palettes can be created simply by manually sampling small areas of representative images and producing a composite image representing each desired class (background, healthy tissue, and symptomatic tissue). The following image[^1] shows symptoms of anthracnose (*Elsinoë ampelina*) on grape leaves.
+
+[^1]: Source: <http://gazeta-rs.com.br/as-principais-doencas-da-videira-na-primavera/#prettyPhoto>
+
+```{r}
+
+img <- image_import(pattern = "videira", plot = TRUE)
+
+# putting image names into quotes "" says to pliman to search such image in the working directory
+sev <- measure_disease("videira",
+                       img_healthy = "videira_healthy",
+                       img_symptoms = "videira_disease",
+                       img_background = "videira_background")
+sev$severity
+
+
+```
+
+
+
+## Using Image Indices
+```{r}
+grape <- img$videira.png
+image_index(grape, c("B", "R", "G", "NGRDI"))
+
+seg <- image_segment(as_image(grape@.Data[,,1:3]), "B",
+                     fill_hull = TRUE)
+
+sev2 <-
+  measure_disease("videira",
+                  index_lb = "G",
+                  index_dh = "NGRDI",
+                  contour_col = "red",
+                  opening = c(0, 5),
+                  threshold = c("Otsu", 0),
+                  # show_original = FALSE,
+                  show_features = TRUE,
+                  save_image = FALSE,
+                  show_segmentation = TRUE,
+                  watershed = TRUE)
+sev2$severity
+```
+
+## Batch Processing
+
+To analyze multiple images from a directory, use the `pattern` argument to declare a pattern for file names. Here, 50 soybean leaves available in the repository https://osf.io/4hbr6, a database of plant disease severity annotation images, will be used. Thanks to [Emerson M. Del Ponte](https://osf.io/jb6yd/) and his collaborators for making this project publicly available. Using the `save_image = TRUE` argument saves the processed images in a temporary directory defined by `tempdir()`.
+
+```{r}
+# create a temporary directory
+
+sev_batch <-
+  measure_disease(pattern = "soy",
+                  dir_original = "sevsoja",
+                  dir_processed = "sevproc",
+                  index_lb = "B",
+                  index_dh = "NGRDI",
+                  threshold = c("Otsu", -0.03),
+                  plot =  FALSE,
+                  parallel = TRUE)
+
+sev_batch$severity |>
+  ggplot(aes(x = symptomatic)) +
+  geom_histogram(bins = 8)
+
+```
+
+
+
+
+## Multiple Leaves in an Image
+
+When multiple leaves are present in an image, the `measure_disease` function returns the average severity of the leaves in the image. To quantify severity *per leaf*, the `measure_disease_byl()` function can be used.
+
+This function calculates the percentage of symptomatic leaf area using color palettes or RGB indices for each leaf (`byl`) in an image. This allows, for example, processing replicates of the same treatment and obtaining results for each replicate with a single image.
+
+In the following example, images of orange leaves, kindly provided by [Gabriele de Jesus](https://www.linkedin.com/in/gabriele-lima-de-jesus-a67805230/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app), are processed.
+
+```{r}
+img <- image_import("sev_leaves.jpg", plot = TRUE)
+sev <-
+  measure_disease_byl(img,
+                      index = "B",
+                      index_lb = "B",
+                      index_dh = "NGRDI")
+
+sev$severity
+```
+
+## Dose-Response Curves
+
+The provided script deals with data analysis of a dose-response experiment to evaluate the effectiveness of different products in reducing the severity of a plant disease. The use of images is authorized by SUMITOMO-SA.
+
+The first step is to quantify the severity within each petri dish, which represents a dose of a particular product. Subsequently, to fit the curves, the analysis is performed using the drda library in R, which is a tool for dose-response data analysis.
+
+The script fits nonlinear regression models to dose-response data using the `drda()` function for each product. The specified model is a 4-parameter log-logistic regression ("ll4").
+
+```{r}
+
+# DOSE-RESPONSE
+# Compute severity per leaf
+sev <-
+  measure_disease_byl(pattern = "img",
+                      index = "B",
+                      index_dh = "NGRDI",
+                      dir_original = "dose_response",
+                      parallel = TRUE,
+                      opening = c(25, 0))
+
+res <- 
+  map_dfr(sev, function(x){
+    x$severity
+  })
+
+sevres <- 
+  res |>
+  separate(img, into = c("img", "product", "dose"), sep = "_") |>
+  mutate(dose = as.numeric(str_replace_all(dose, ",", ".")),
+         symptomatic = symptomatic / 100)
+
+models <-
+  sevres |>
+  group_by(product) |>
+  nest() |>
+  mutate(models = map(data,
+                      ~drda(symptomatic ~ dose,
+                            data = .,
+                            mean_function = "ll4"))) |> # define the model here
+  dplyr::select(-data)
+
+# function to obtain the coefficients
+get_results <- function(model,
+                        resplevel = 0.5,
+                        type = "relative"){
+  coefs <- coef(model) |> t()
+  ed <- effective_dose(model, y = resplevel) |> as.data.frame()
+  integ <- data.frame(nauc = nauc(model, range(model$model[[2]])))
+  cbind(coefs, ed, integ)
+}
+
+# Obtain the coefficients
+# alpha:  the value of the function at x = 0
+# delta: height of the curve
+# eta: the steepness (growth rate) of the curve
+# phi: the x value at which the curve is equal to its mid-point
+
+coefs <-
+  models |>
+  mutate(coefs = map_dfr(
+    .x = models,
+    .f = ~get_results(., resplevel = 0.5)) # DL50
+  ) |>
+  dplyr::select(-models) |>
+  unnest(coefs) |>
+  ungroup() |>
+  as.data.frame()
+
+coefs
+
+plot(models$models[[1]], models$models[[2]],
+     level = 0,
+     base = "10",
+     ylim = c(0, 0.5),
+     xlim = c(0, 100),
+     legend = c("P1", "P2"),
+     xlab = "Dose (ppm)",
+     ylab = "Disease Severity",
+     col = metan::ggplot_color(2),
+     cex = 2)
+
+
+# derivative with respect to dose of the model
+D(expression(alpha + delta * x^eta / (x^eta + phi^eta)), "x")
+
+dy <- function(x,alpha,  delta,   eta,   phi){
+  delta * (x^(eta - 1) * eta)/(x^eta + phi^eta) - delta * x^eta *
+    (x^(eta - 1) * eta)/(x^eta + phi^eta)^2
+}
+
+# First derivative
+ggplot(data.frame(x = c(0, 5)), aes(x = x)) +
+  pmap(coefs |> select(product:phi), function(product, alpha, delta, eta, phi) {
+    stat_function(fun = function(x) dy(x, alpha, delta, eta, phi),
+                  aes(color = product),
+                  linewidth = 1)
+  }) +
+  geom_vline(aes(xintercept = phi,
+                 color = product),
+             data = coefs,
+             linetype = 2) +
+  labs(x = "Dose (ppm)",
+       y = "Severity Reduction Rate (% per ppm)",
+       color = "Product") +
+  ggthemes::theme_base()
+
+```
+
+## Fungi in Petri Dishes
+
+```{r}
+# fungi in petri dish
+fungi <- image_import("fungi.jpg", plot = TRUE)
+
+image_index(fungi, "L")
+analyze_objects(fungi,
+                index = "L",
+                filter  = 15,
+                watershed = FALSE,
+                contour_size  = 3,
+                invert = TRUE) |>
+  get_measures(dpi = 90) |>
+  plot_measures(measure = "area",
+                col = "black",
+                size = 2)
+```
+
+## Bacteria
+```{r}
+bac <- image_import("bacteria.jpg", plot = TRUE)
+res <- 
+  analyze_objects(bac,
+                  index = "L*",
+                  threshold = 0.3,
+                  marker = "point")
+res$statistics
+```
+
+

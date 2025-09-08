@@ -1,0 +1,57 @@
+project:
+  type: website
+
+theme:
+  light: flatly
+  dark: darkly
+
+website:
+  search:
+    location: sidebar
+  title: "pliman and plimanshiny for HTP"
+  page-footer:
+    border: true
+    background: light
+    left: "High-throughput phenotyping"
+    right: "Dr. Tiago Olivoto LEMGAD/NEPEM/UFSC "
+  page-navigation: true
+  navbar:
+    background: "#0759e8"
+    search: true
+    left:
+      - text: "About"
+        file: 00_about.qmd
+        icon: fa fa-home
+    right:
+      - icon: bi-github 
+        href: https://github.com/TiagoOlivoto
+
+  sidebar:
+    style: "docked"
+    background: light
+    border: true
+    search: true
+    contents:
+        - 01_dia1.qmd
+        - 02_dia2.qmd
+
+format:
+  html:
+    theme:
+       light: journal
+       dark: darkly
+    toc: true
+    toc-title: "In this page"
+    number-sections: true
+    number-depth: 3
+    self-contained: false
+    smooth-scroll: true
+    code-fold: false
+    code-tools: true
+    code-block-bg: "#f5f2f2"
+    highlight-style: tango
+    code-block-border-left: "#31BAE9"
+    code-link: true
+
+execute:
+  collapse: true
