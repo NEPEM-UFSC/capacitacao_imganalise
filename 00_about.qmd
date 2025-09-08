@@ -30,8 +30,12 @@ renv::restore()
 
 If you later add new packages, run:
 ```{r eval = FALSE}
-renv::snapshot()
-
+renv::init()
+renv::install("yaml")
+renv::install("tidyverse")
+renv::install("pliman")
+renv::install("bioc::EBImage")
+renv::snapshot(type = "all")
 ```
 
 
